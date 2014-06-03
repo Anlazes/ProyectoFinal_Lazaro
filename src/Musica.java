@@ -7,6 +7,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class Musica extends JFrame {
@@ -19,6 +22,8 @@ public class Musica extends JFrame {
 	private JComboBox<String> listaMusica;
 	
 	private ControladorDB conect=new ControladorDB();
+	private JButton guardarBtn;
+	private JButton eliminarBtn;
 
 	//Constructor de la ventana Musica
 	public Musica() {
@@ -26,7 +31,7 @@ public class Musica extends JFrame {
 		
 		setTitle("Biblioteca M\u00FAsica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 294);
+		setBounds(100, 100, 450, 322);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -71,6 +76,23 @@ public class Musica extends JFrame {
 		textoGenero.setBounds(107, 209, 299, 20);
 		contentPane.add(textoGenero);
 		textoGenero.setColumns(10);
+		
+		guardarBtn = new JButton("Guardar");
+		guardarBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		guardarBtn.setBounds(26, 250, 89, 23);
+		contentPane.add(guardarBtn);
+		
+		eliminarBtn = new JButton("Eliminar");
+		eliminarBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		eliminarBtn.setBounds(317, 250, 89, 23);
+		contentPane.add(eliminarBtn);
 	}
 
 }

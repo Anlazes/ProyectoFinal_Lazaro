@@ -10,6 +10,9 @@ import java.awt.Toolkit;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class Libros extends JFrame {
@@ -22,12 +25,17 @@ public class Libros extends JFrame {
 	private JComboBox<String> listaLibros;
 	
 	private ControladorDB conect=new ControladorDB();
+	private JButton guardarBtn;
+	private JButton eliminarBtn;
 
 	//Constructor de la ventana Libros
 	public Libros() {
+		
+		conect.leerLibros(listaLibros);
+		
 		setTitle("Biblioteca Libros");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 320);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,5 +80,23 @@ public class Libros extends JFrame {
 		textoEd.setBounds(111, 198, 285, 20);
 		contentPane.add(textoEd);
 		textoEd.setColumns(10);
+		
+		guardarBtn = new JButton("Guardar Libro");
+		guardarBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//Llamada al método de insertar libros pasandole los escrito en los campos de texto
+				conect.insertarLibro(textoTitulo.getText(), textoAutor.getText(), textoGenero.getText(), textoEd.getText(), listaLibros);			
+			}
+		});
+		guardarBtn.setBounds(37, 248, 117, 23);
+		contentPane.add(guardarBtn);
+		
+		eliminarBtn = new JButton("Eliminar Libro");
+		eliminarBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		eliminarBtn.setBounds(270, 248, 126, 23);
+		contentPane.add(eliminarBtn);
 	}
 }
