@@ -15,9 +15,7 @@ public class Principal extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
+	//Lanzador de la aplicación
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -31,13 +29,11 @@ public class Principal extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	//Constructor de la ventana Principal
 	public Principal() {
-		setTitle("Inventario Multimedia");
+		setTitle("Biblioteca Multimedia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 539, 376);
+		setBounds(100, 100, 539, 348);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -51,9 +47,17 @@ public class Principal extends JFrame {
 		JButton gestionBt = new JButton("Mi Biblioteca");
 		gestionBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				abrirBiblio();  //Abre la ventana Biblioteca al pulsar el botón
 			}
 		});
 		gestionBt.setBounds(106, 236, 304, 44);
 		contentPane.add(gestionBt);
+	}
+	
+	//Método para abrir la Ventana Biblioteca
+	public void abrirBiblio() {
+		Biblioteca frameBiblio = new Biblioteca();
+		frameBiblio.setVisible(true);
+		this.dispose();
 	}
 }
