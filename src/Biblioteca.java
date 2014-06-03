@@ -1,10 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -15,6 +17,8 @@ public class Biblioteca extends JFrame {
 
 	//Constructor de la ventana Biblioteca
 	public Biblioteca() {
+		
+		
 		setTitle("Biblioteca Multimedia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 304, 251);

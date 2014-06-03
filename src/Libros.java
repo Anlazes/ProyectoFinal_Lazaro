@@ -28,10 +28,15 @@ public class Libros extends JFrame {
 	private JButton guardarBtn;
 	private JButton eliminarBtn;
 
-	//Constructor de la ventana Libros
+	//Constructor de la clase Libros
 	public Libros() {
 		
+		iniciarVentana();
 		conect.leerLibros(listaLibros);
+	}	
+	
+	//Constructor de la ventana Libros
+	public void iniciarVentana() {
 		
 		setTitle("Biblioteca Libros");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +89,7 @@ public class Libros extends JFrame {
 		guardarBtn = new JButton("Guardar Libro");
 		guardarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Llamada al método de insertar libros pasandole los escrito en los campos de texto
+				//Llamada al método de insertar libros pasandole lo escrito en los campos de texto
 				conect.insertarLibro(textoTitulo.getText(), textoAutor.getText(), textoGenero.getText(), textoEd.getText(), listaLibros);			
 			}
 		});
