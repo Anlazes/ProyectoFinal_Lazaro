@@ -58,6 +58,6 @@ public class Principal extends JFrame {
 	public void abrirBiblio() {
 		Biblioteca frameBiblio = new Biblioteca();
 		frameBiblio.setVisible(true);
-		this.dispose();
+		this.dispose(); //cierra la ventana principal al abrir la de biblioteca
 	}
 }

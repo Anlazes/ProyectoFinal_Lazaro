@@ -4,7 +4,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Toolkit;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -15,9 +17,11 @@ public class Libros extends JFrame {
 	private JPanel contentPane;
 	private JTextField textoTitulo;
 	private JTextField textoAutor;
-	private JTextField textoEdit;
+	private JTextField textoGenero;
 	private JTextField textoEd;
-	private JComboBox comboBox;
+	private JComboBox<String> comboBox;
+	
+	private ControladorDB conect=new ControladorDB();
 
 	//Constructor de la ventana Libros
 	public Libros() {
@@ -42,12 +46,12 @@ public class Libros extends JFrame {
 		contentPane.add(lblTitulo);
 		
 		JLabel lblEditorial = new JLabel("Editorial");
-		lblEditorial.setBounds(37, 160, 46, 14);
+		lblEditorial.setBounds(37, 201, 46, 14);
 		contentPane.add(lblEditorial);
 		
-		JLabel lblEdic = new JLabel("Edici\u00F3n");
-		lblEdic.setBounds(37, 201, 46, 14);
-		contentPane.add(lblEdic);
+		JLabel lblGenero = new JLabel("G\u00E9nero");
+		lblGenero.setBounds(37, 160, 46, 14);
+		contentPane.add(lblGenero);
 		
 		textoTitulo = new JTextField();
 		textoTitulo.setBounds(111, 82, 285, 20);
@@ -59,10 +63,10 @@ public class Libros extends JFrame {
 		contentPane.add(textoAutor);
 		textoAutor.setColumns(10);
 		
-		textoEdit = new JTextField();
-		textoEdit.setBounds(111, 157, 285, 20);
-		contentPane.add(textoEdit);
-		textoEdit.setColumns(10);
+		textoGenero = new JTextField();
+		textoGenero.setBounds(111, 157, 285, 20);
+		contentPane.add(textoGenero);
+		textoGenero.setColumns(10);
 		
 		textoEd = new JTextField();
 		textoEd.setBounds(111, 198, 285, 20);
