@@ -16,12 +16,14 @@ public class Musica extends JFrame {
 	private JTextField textoTitulo;
 	private JTextField textoAnyo;
 	private JTextField textoGenero;
-	private JComboBox<String> comboBox;
+	private JComboBox<String> listaMusica;
 	
 	private ControladorDB conect=new ControladorDB();
 
 	//Constructor de la ventana Musica
 	public Musica() {
+		
+		
 		setTitle("Biblioteca M\u00FAsica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 294);
@@ -30,9 +32,9 @@ public class Musica extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(26, 38, 380, 20);
-		contentPane.add(comboBox);
+		listaMusica = new JComboBox<String>();
+		listaMusica.setBounds(26, 38, 380, 20);
+		contentPane.add(listaMusica);
 		
 		JLabel lblGrupo = new JLabel("Grupo/Autor");
 		lblGrupo.setBounds(26, 86, 76, 14);

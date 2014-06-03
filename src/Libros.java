@@ -19,7 +19,7 @@ public class Libros extends JFrame {
 	private JTextField textoAutor;
 	private JTextField textoGenero;
 	private JTextField textoEd;
-	private JComboBox<String> comboBox;
+	private JComboBox<String> listaLibros;
 	
 	private ControladorDB conect=new ControladorDB();
 
@@ -33,9 +33,9 @@ public class Libros extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		comboBox = new JComboBox();
-		comboBox.setBounds(37, 29, 359, 20);
-		contentPane.add(comboBox);
+		listaLibros = new JComboBox<String>();
+		listaLibros.setBounds(37, 29, 359, 20);
+		contentPane.add(listaLibros);
 		
 		JLabel lblAutor = new JLabel("Autor");
 		lblAutor.setBounds(37, 122, 46, 14);
