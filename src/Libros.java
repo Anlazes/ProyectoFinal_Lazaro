@@ -104,7 +104,6 @@ public class Libros extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				//Llamada al método de insertar libros pasandole lo escrito en los campos de texto
 				conect.insertarLibro(textoTitulo.getText(), textoAutor.getText(), textoGenero.getText(), textoEd.getText(), listaLibros);	
-				listaLibros.getSelectedItem();
 			}
 		});
 		guardarBtn.setBounds(37, 248, 94, 23);
@@ -120,6 +119,8 @@ public class Libros extends JFrame {
 		
 		consultarBtn = new JButton("Consultar");
 		consultarBtn.addActionListener(new ActionListener() {
+			private String nombre;
+
 			public void actionPerformed(ActionEvent arg0) {
 				textoTitulo.setText("");
 				textoAutor.setText("");
@@ -129,8 +130,8 @@ public class Libros extends JFrame {
 					Class.forName("com.mysql.jdbc.Driver");
 					Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/biblioteca","root","");
 					Statement comando=conexion.createStatement();
-					ResultSet registro = comando.executeQuery("SELECT * FROM libros WHERE 1");
-					if (registro.next()==true) {
+					ResultSet registro = comando.executeQuery("SELECT * FROM libros WHERE titulo="+listaLibros.getSelectedIndex());
+					if (registro.next()) { 
 						textoTitulo.setText(registro.getString("titulo"));
 						textoAutor.setText(registro.getString("autor"));
 						textoGenero.setText(registro.getString("genero"));
