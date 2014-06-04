@@ -148,27 +148,6 @@ public class Libros extends JFrame {
 		contentPane.add(consultarBtn);
 	  	
 	}
-	
-	public void leerLibros(JComboBox<String> listaLibros) {
-		try {		
-		//crea objeto Statement para consultar la base de datos	
-		instruccion = (Statement) conexion.createStatement();
-		//consulta la base de datos
-		resultados = instruccion.executeQuery("SELECT titulo FROM libros");		
-			while (resultados.next()) { 
-			this.nombre=(String)resultados.getObject("titulo");
-		
-			listaLibros.addItem(nombre);
-			textoTitulo.setText(resultados.getString("titulo"));
-			}
-			
-		} catch (SQLException slqex) {
-			slqex.printStackTrace();
-		}
-	}
-	
-	public String toString() {
-		return nombre;
-	}
+
 }
 
