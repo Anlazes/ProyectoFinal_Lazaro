@@ -142,7 +142,7 @@ public class VentanaLibros extends JFrame {
 		textoAutor.setText("");
 		textoGenero.setText("");
 		textoEd.setText("");
-		int id = listaLibros.getSelectedIndex();
+		int id = listaLibros.getSelectedIndex()-1;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/biblioteca","root","");
