@@ -77,13 +77,12 @@ public class ControladorDB {
 
 	//Método para eliminar un libro de la DB
 	public void borrarLibro(JComboBox<String> listaLibros) {
-		//Realiza la consulta
+		int id = listaLibros.getSelectedIndex();
 		try {
 		//crea objeto Statement para consultar la base de datos	
-		instruccion = (Statement) conexion.createStatement();
-		int id = listaLibros.getSelectedIndex();
-		String slq_ins="DELETE FROM libros WHERE titulo="+id;	
-		instruccion.executeUpdate(slq_ins);
+		instruccion = (Statement) conexion.createStatement();		
+		String slq="DELETE FROM libros WHERE titulo="+id;	
+		instruccion.executeUpdate(slq);
 		//Actualización del combobox
 		listaLibros.removeItemAt(id);
 		leerLibros(listaLibros);

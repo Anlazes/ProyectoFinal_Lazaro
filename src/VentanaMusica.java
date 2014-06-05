@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class Musica extends JFrame {
+public class VentanaMusica extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textoGrupo;
@@ -26,7 +26,7 @@ public class Musica extends JFrame {
 	private JButton eliminarBtn;
 
 	//Constructor de la ventana Musica
-	public Musica() {
+	public VentanaMusica() {
 		
 		
 		setTitle("Biblioteca M\u00FAsica");

@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class Libros extends JFrame {
+public class VentanaLibros extends JFrame {
 
 	private JPanel contentPane;
 	private	JTextField textoTitulo;
@@ -42,7 +42,7 @@ public class Libros extends JFrame {
 
 
 	//Constructor de la clase Libros
-	public Libros() {
+	public VentanaLibros() {
 		
 		iniciarVentana();
 		conect.leerLibros(listaLibros);				
@@ -104,6 +104,7 @@ public class Libros extends JFrame {
 		guardarBtn = new JButton("Guardar");
 		guardarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				//Llamada al método de insertar libros pasandole lo escrito en los campos de texto
 				conect.insertarLibro(textoTitulo.getText(), textoAutor.getText(), textoGenero.getText(), textoEd.getText(), listaLibros);	
 			}
@@ -114,6 +115,7 @@ public class Libros extends JFrame {
 		eliminarBtn = new JButton("Eliminar");
 		eliminarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				conect.borrarLibro(listaLibros);
 			}
 		});
@@ -122,7 +124,7 @@ public class Libros extends JFrame {
 		
 		consultarBtn = new JButton("Consultar");
 		consultarBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {		
 				
 				consultarLibros();
 			}
@@ -136,13 +138,14 @@ public class Libros extends JFrame {
 		textoTitulo.setText("");
 		textoAutor.setText("");
 		textoGenero.setText("");
-		textoEd.setText("");	
+		textoEd.setText("");
+		int id = listaLibros.getSelectedIndex();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/biblioteca","root","");
 			Statement comando=conexion.createStatement();
-			ResultSet registro = comando.executeQuery("SELECT * FROM libros WHERE"+listaLibros.getSelectedIndex());
-			while (registro.next()) {				
+			ResultSet registro = comando.executeQuery("SELECT * FROM libros WHERE"+id);
+			if (registro.next()==true) {				
 				textoTitulo.setText(registro.getString("titulo"));
 				textoAutor.setText(registro.getString("autor"));
 				textoGenero.setText(registro.getString("genero"));

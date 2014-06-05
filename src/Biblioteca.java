@@ -9,6 +9,7 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 
 public class Biblioteca extends JFrame {
@@ -47,7 +48,8 @@ public class Biblioteca extends JFrame {
 		JButton librosBtn = new JButton("Libros");
 		librosBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				abrirLibros(); //Abre la ventana Libros
+				//Abre la ventana Libros
+					abrirLibros();
 			}
 		});
 		librosBtn.setBounds(52, 148, 176, 23);
@@ -56,14 +58,14 @@ public class Biblioteca extends JFrame {
 	
 	//Método para abrir la ventana Libros
 	public void abrirLibros() {
-		Libros frameLibros = new Libros();
+		VentanaLibros frameLibros = new VentanaLibros();
 		frameLibros.setVisible(true);
 		frameLibros.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
 	//Método para abrir la ventana Musica
 	public void abrirMusica() {
-		Musica frameMusica = new Musica();
+		VentanaMusica frameMusica = new VentanaMusica();
 		frameMusica.setVisible(true);
 		frameMusica.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
