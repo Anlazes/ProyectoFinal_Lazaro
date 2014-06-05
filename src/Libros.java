@@ -31,20 +31,21 @@ public class Libros extends JFrame {
 	private JButton guardarBtn;
 	private JButton eliminarBtn;
 	private JButton consultarBtn;
-	private String nombre;
 	private JComboBox<String> listaLibros;
+	private String nombre;
 	
 	private ControladorDB conect=new ControladorDB();
 	Connection conexion = null; //maneja la conexión
 	Statement instruccion = null; //instrucción de consulta
 	ResultSet resultados = null; //maneja los resultados
+	
 
 
 	//Constructor de la clase Libros
 	public Libros() {
 		
 		iniciarVentana();
-		conect.leerLibros(listaLibros);		
+		conect.leerLibros(listaLibros);				
 	}
 	
 	
@@ -98,6 +99,7 @@ public class Libros extends JFrame {
 		textoEd.setBounds(111, 198, 285, 20);
 		contentPane.add(textoEd);
 		textoEd.setColumns(10);
+
 		
 		guardarBtn = new JButton("Guardar");
 		guardarBtn.addActionListener(new ActionListener() {
@@ -112,6 +114,7 @@ public class Libros extends JFrame {
 		eliminarBtn = new JButton("Eliminar");
 		eliminarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				conect.borrarLibro(listaLibros);
 			}
 		});
 		eliminarBtn.setBounds(288, 248, 108, 23);
@@ -119,36 +122,44 @@ public class Libros extends JFrame {
 		
 		consultarBtn = new JButton("Consultar");
 		consultarBtn.addActionListener(new ActionListener() {
-			private String nombre;
-
 			public void actionPerformed(ActionEvent arg0) {
-				textoTitulo.setText("");
-				textoAutor.setText("");
-				textoGenero.setText("");
-				textoEd.setText("");
-				try {
-					Class.forName("com.mysql.jdbc.Driver");
-					Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/biblioteca","root","");
-					Statement comando=conexion.createStatement();
-					ResultSet registro = comando.executeQuery("SELECT * FROM libros WHERE titulo="+listaLibros.getSelectedIndex());
-					if (registro.next()) { 
-						textoTitulo.setText(registro.getString("titulo"));
-						textoAutor.setText(registro.getString("autor"));
-						textoGenero.setText(registro.getString("genero"));
-						textoEd.setText(registro.getString("editorial"));
-					} else {
-						textoTitulo.setText("No hay registros");
-					}
-					conexion.close();
-				} catch(SQLException | ClassNotFoundException  ex){
-					setTitle(ex.toString());
-				}
+				
+				consultarLibros();
 			}
 		});
 		consultarBtn.setBounds(164, 248, 89, 23);
 		contentPane.add(consultarBtn);
 	  	
 	}
-
+	
+	public void consultarLibros() {
+		textoTitulo.setText("");
+		textoAutor.setText("");
+		textoGenero.setText("");
+		textoEd.setText("");	
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/biblioteca","root","");
+			Statement comando=conexion.createStatement();
+			ResultSet registro = comando.executeQuery("SELECT * FROM libros WHERE"+listaLibros.getSelectedIndex());
+			while (registro.next()) {				
+				textoTitulo.setText(registro.getString("titulo"));
+				textoAutor.setText(registro.getString("autor"));
+				textoGenero.setText(registro.getString("genero"));
+				textoEd.setText(registro.getString("editorial"));
+			//} else {
+			//	textoTitulo.setText("No hay registros");
+			}
+			conexion.close();
+		} catch(SQLException | ClassNotFoundException  ex){
+			setTitle(ex.toString());
+		}
+			
+	}
+	
+	public String toString() {
+		return nombre;
+	}
+	
 }
 
