@@ -3,6 +3,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.security.auth.callback.TextOutputCallback;
 import javax.swing.JComboBox;
@@ -11,6 +12,8 @@ import javax.swing.JComboBox;
 public class ControladorDB {
 	
 	private String nombre;
+	private ArrayList<Libro> misLibros;
+	private Libro nuevoLibro;
 	//Base de datos
 	Connection conexion = null; //maneja la conexión
 	Statement instruccion = null; //instrucción de consulta
@@ -37,13 +40,13 @@ public class ControladorDB {
 	}
 	
 	//Método para consultar base de datos
-	public void leerLibros(JComboBox<String> listaLibros) {
+	public void leerLibros(Libro libro, JComboBox<String> listaLibros) {
 		try {		
 		//crea objeto Statement para consultar la base de datos	
 		instruccion = (Statement) conexion.createStatement();
 		//consulta la base de datos
 		resultados = instruccion.executeQuery("SELECT titulo FROM libros");		
-			while (resultados.next()) { 
+			while (resultados.next()) { 		
 			this.nombre=(String)resultados.getObject("titulo");
 		
 			listaLibros.addItem(nombre);
@@ -57,16 +60,16 @@ public class ControladorDB {
 	
 	
 	//Método para insertar un nuevo libro en la base de datos
-	public void insertarLibro(String titulo, String autor, String genero, String editorial, JComboBox<String> listaLibros) {
+	public void insertarLibro(int idLibro, String titulo, String autor, String genero, String editorial, JComboBox<String> listaLibros) {
 		//Realiza la consulta
 		try {
 		//crea objeto Statement para consultar la base de datos	
 		instruccion = (Statement) conexion.createStatement();
-		String slq_ins="INSERT INTO libros(titulo, autor, genero, editorial) VALUES ('"+titulo+"','"+autor+"','"+genero+"','"+editorial+"')";
+		String slq_ins="INSERT INTO libros(idLibro ,titulo ,autor ,genero ,editorial)VALUES("+idLibro+",'"+titulo+"','"+autor+"','"+genero+"','"+editorial+"')";
 		instruccion.executeUpdate(slq_ins);
 		//Actualización del combobox
 		listaLibros.removeAllItems();
-		leerLibros(listaLibros);
+		leerLibros(nuevoLibro,listaLibros);
 		
 		} catch (SQLException slqex) {
 			slqex.printStackTrace();
@@ -81,11 +84,11 @@ public class ControladorDB {
 		try {
 		//crea objeto Statement para consultar la base de datos	
 		instruccion = (Statement) conexion.createStatement();		
-		String slq="DELETE FROM libros WHERE titulo="+id;	
+		String slq="DELETE FROM libros WHERE idLibro="+id;	
 		instruccion.executeUpdate(slq);
 		//Actualización del combobox
 		listaLibros.removeItemAt(id);
-		leerLibros(listaLibros);
+		leerLibros(nuevoLibro,listaLibros);
 		
 		} catch (SQLException slqex) {
 			slqex.printStackTrace();
