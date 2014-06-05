@@ -12,8 +12,7 @@ import javax.swing.JComboBox;
 public class ControladorDB {
 	
 	private String nombre;
-	private ArrayList<Libro> misLibros;
-	private Libro nuevoLibro;
+	private Libro libro;
 	//Base de datos
 	Connection conexion = null; //maneja la conexión
 	Statement instruccion = null; //instrucción de consulta
@@ -65,11 +64,13 @@ public class ControladorDB {
 		try {
 		//crea objeto Statement para consultar la base de datos	
 		instruccion = (Statement) conexion.createStatement();
-		String slq_ins="INSERT INTO libros(idLibro ,titulo ,autor ,genero ,editorial)VALUES("+idLibro+",'"+titulo+"','"+autor+"','"+genero+"','"+editorial+"')";
-		instruccion.executeUpdate(slq_ins);
-		//Actualización del combobox
+		String slq_ins="INSERT INTO libros(idLibro, titulo ,autor ,genero ,editorial)VALUES("+idLibro+",'"+titulo+"','"+autor+"','"+genero+"','"+editorial+"')";
+		instruccion.executeUpdate(slq_ins);	
+		
+		//Actualización de comboBox
 		listaLibros.removeAllItems();
-		leerLibros(nuevoLibro,listaLibros);
+		leerLibros(libro,listaLibros);
+		
 		
 		} catch (SQLException slqex) {
 			slqex.printStackTrace();
@@ -81,14 +82,19 @@ public class ControladorDB {
 	//Método para eliminar un libro de la DB
 	public void borrarLibro(JComboBox<String> listaLibros) {
 		int id = listaLibros.getSelectedIndex();
+		
 		try {
 		//crea objeto Statement para consultar la base de datos	
-		instruccion = (Statement) conexion.createStatement();		
-		String slq="DELETE FROM libros WHERE idLibro="+id;	
-		instruccion.executeUpdate(slq);
-		//Actualización del combobox
+		instruccion = (Statement) conexion.createStatement();
+		String slq="DELETE FROM `libros` WHERE idLibro="+id;	
+		//Elimina entrada de comboBox
 		listaLibros.removeItemAt(id);
-		leerLibros(nuevoLibro,listaLibros);
+		//Elimina libro
+		instruccion.executeUpdate(slq);
+		
+		//Actualización del combobox
+		listaLibros.removeAllItems();
+		leerLibros(libro,listaLibros);
 		
 		} catch (SQLException slqex) {
 			slqex.printStackTrace();

@@ -32,8 +32,8 @@ public class VentanaLibros extends JFrame {
 	private JButton guardarBtn;
 	private JButton eliminarBtn;
 	private JButton consultarBtn;
+	private JTextField textoId;
 	private JComboBox<String> listaLibros;
-	private ArrayList<Libro> misLibros;
 	private Libro miLibro;
 	private String nombre;
 	
@@ -41,6 +41,7 @@ public class VentanaLibros extends JFrame {
 	Connection conexion = null; //maneja la conexión
 	Statement instruccion = null; //instrucción de consulta
 	ResultSet resultados = null; //maneja los resultados
+
 	
 
 
@@ -49,6 +50,7 @@ public class VentanaLibros extends JFrame {
 		
 		iniciarVentana();
 		conect.leerLibros(miLibro, listaLibros);				
+		
 	}
 	
 	
@@ -64,6 +66,7 @@ public class VentanaLibros extends JFrame {
 		contentPane.setLayout(null);
 		
 		listaLibros = new JComboBox<String>();
+		listaLibros.setSelectedIndex(-1);
 		listaLibros.setBounds(37, 29, 359, 20);
 		contentPane.add(listaLibros);
 		
@@ -102,14 +105,35 @@ public class VentanaLibros extends JFrame {
 		textoEd.setBounds(111, 198, 285, 20);
 		contentPane.add(textoEd);
 		textoEd.setColumns(10);
+		
+		textoId = new JTextField();
+		textoId.setEditable(false);
+		textoId.setBounds(57, 57, 26, 20);
+		contentPane.add(textoId);
+		textoId.setColumns(10);
+		//textoId.setText(String.valueOf(listaLibros.getComponentCount()));
+		
+		
+		JLabel lbId = new JLabel("ID");
+		lbId.setBounds(37, 60, 17, 14);
+		contentPane.add(lbId);
 
 		
 		guardarBtn = new JButton("Guardar");
 		guardarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				//Llamada al método de insertar libros pasandole lo escrito en los campos de texto
-				conect.insertarLibro(listaLibros.getSelectedIndex(),textoTitulo.getText(), textoAutor.getText(), textoGenero.getText(), textoEd.getText(), listaLibros);	
+				//Seleccionamos el último indice de comboBox para asignarlo al IdLibro
+				int id= listaLibros.getItemCount()-1; 
+				
+				//Llamada al método de insertar libros pasandole lo escrito en los campos de texto				
+				conect.insertarLibro(id, textoTitulo.getText(), textoAutor.getText(), textoGenero.getText(), textoEd.getText(), listaLibros);
+				textoTitulo.setText("");
+				textoAutor.setText("");
+				textoGenero.setText("");
+				textoEd.setText("");
+				
+				
 			}
 		});
 		guardarBtn.setBounds(37, 248, 94, 23);
@@ -142,17 +166,17 @@ public class VentanaLibros extends JFrame {
 		textoAutor.setText("");
 		textoGenero.setText("");
 		textoEd.setText("");
-		int id = listaLibros.getSelectedIndex()-1;
+		int id=listaLibros.getSelectedIndex()-1;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/biblioteca","root","");
 			Statement comando=conexion.createStatement();
-			ResultSet registro = comando.executeQuery("SELECT * FROM libros WHERE idLibro="+id);
-			if (registro.next()==true) {
-				textoTitulo.setText(registro.getString("titulo"));
-				textoAutor.setText(registro.getString("autor"));
-				textoGenero.setText(registro.getString("genero"));
-				textoEd.setText(registro.getString("editorial"));
+			ResultSet res = comando.executeQuery("SELECT * FROM libros WHERE idLibro="+id);
+			if (res.next()==true) {
+				textoTitulo.setText(res.getString("titulo"));
+				textoAutor.setText(res.getString("autor"));
+				textoGenero.setText(res.getString("genero"));
+				textoEd.setText(res.getString("editorial"));
 			}
 			conexion.close();
 		} catch(SQLException | ClassNotFoundException  ex){
@@ -164,6 +188,5 @@ public class VentanaLibros extends JFrame {
 	public String toString() {
 		return nombre;
 	}
-	
 }
 
