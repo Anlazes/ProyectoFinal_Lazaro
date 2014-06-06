@@ -8,8 +8,20 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+
+
+
+
+
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class VentanaMusica extends JFrame {
@@ -19,15 +31,26 @@ public class VentanaMusica extends JFrame {
 	private JTextField textoTitulo;
 	private JTextField textoAnyo;
 	private JTextField textoGenero;
-	private JComboBox<String> listaMusica;
-	
-	private ControladorDB conect=new ControladorDB();
 	private JButton guardarBtn;
 	private JButton eliminarBtn;
+	private JButton consultarBtn;
+	private JComboBox<String> listaMusica;
+	
+	Connection conexion = null; //maneja la conexión
+	Statement instruccion = null; //instrucción de consulta
+	ResultSet resultados = null; //maneja los resultados
+	
+	private ControladorDB conect=new ControladorDB();
+	
+
 
 	//Constructor de la ventana Musica
 	public VentanaMusica() {
+		iniciarVentana();
+		conect.leerMusica(listaMusica);
+	}
 		
+	public void iniciarVentana() {
 		
 		setTitle("Biblioteca M\u00FAsica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,6 +103,17 @@ public class VentanaMusica extends JFrame {
 		guardarBtn = new JButton("Guardar");
 		guardarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Seleccionamos el último indice de comboBox para asignarlo al idDisco
+				int id= listaMusica.getItemCount()-1; 
+				
+				//Llamada al método de insertar discos pasandole lo escrito en los campos de texto
+				conect.insertarDisco(id, textoGrupo.getText(), textoTitulo.getText(), textoAnyo.getText(), textoGenero.getText(), listaMusica);
+				
+				//Limpia los campos de texto una vez guardado el nuevo disco
+				textoGrupo.setText("");
+				textoTitulo.setText("");
+				textoAnyo.setText("");
+				textoGenero.setText("");
 				
 			}
 		});
@@ -93,6 +127,38 @@ public class VentanaMusica extends JFrame {
 		});
 		eliminarBtn.setBounds(317, 250, 89, 23);
 		contentPane.add(eliminarBtn);
+		
+		consultarBtn = new JButton("Consultar");
+		consultarBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				consularDisco();
+			}
+		});
+		consultarBtn.setBounds(170, 250, 89, 23);
+		contentPane.add(consultarBtn);
 	}
-
+	
+	public void consularDisco () {
+		textoGrupo.setText("");
+		textoTitulo.setText("");
+		textoGenero.setText("");
+		textoAnyo.setText("");
+		int id=listaMusica.getSelectedIndex()-1;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/biblioteca","root","");
+			Statement comando=conexion.createStatement();
+			ResultSet res = comando.executeQuery("SELECT * FROM musica WHERE idDisco="+id);
+			if (res.next()==true) {
+				textoGrupo.setText(res.getString("grupo"));
+				textoTitulo.setText(res.getString("titulo"));
+				textoGenero.setText(res.getString("genero"));
+				textoAnyo.setText(res.getString("anyo"));
+			}
+			conexion.close();
+		} catch(SQLException | ClassNotFoundException  ex){
+			setTitle(ex.toString());
+		}
+	
+	}
 }
