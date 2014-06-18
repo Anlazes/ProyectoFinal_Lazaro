@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 
 public class Biblioteca extends JFrame {
@@ -39,7 +40,7 @@ public class Biblioteca extends JFrame {
 				abrirMusica(); 
 			}
 		});
-		musicaBtn.setBounds(310, 133, 176, 23);
+		musicaBtn.setBounds(310, 168, 176, 23);
 		contentPane.add(musicaBtn);
 		
 		JButton juegosBtn = new JButton("Peliculas");
@@ -65,15 +66,16 @@ public class Biblioteca extends JFrame {
 		lblNewLabel.setBounds(0, -3, 268, 325);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon(Biblioteca.class.getResource("/Imagenes/musica.jpg")));
-		lblNewLabel_1.setBounds(238, -3, 288, 188);
-		contentPane.add(lblNewLabel_1);
-		
 		JLabel lblNewLabel_2 = new JLabel("New label");
 		lblNewLabel_2.setIcon(new ImageIcon(Biblioteca.class.getResource("/Imagenes/pelicula.jpg")));
 		lblNewLabel_2.setBounds(298, 202, 257, 169);
 		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setIcon(new ImageIcon(Biblioteca.class.getResource("/Imagenes/la-musica.jpg")));
+		lblNewLabel_1.setBounds(241, -48, 296, 239);
+		contentPane.add(lblNewLabel_1);
 	}
 	
 	//Método para abrir la ventana Libros
