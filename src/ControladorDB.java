@@ -148,7 +148,7 @@ public class ControladorDB {
 			String slq="DELETE FROM musica WHERE idDisco="+id;	
 			//Elimina entrada de comboBox
 			listaMusica.removeItemAt(id);
-			//Elimina libro
+			//Elimina disco
 			instruccion.execute(slq);
 			
 			//Actualización del combobox

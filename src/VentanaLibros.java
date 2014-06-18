@@ -176,8 +176,5 @@ public class VentanaLibros extends JFrame {
 			
 	}
 	
-	public String toString() {
-		return nombre;
-	}
 }
 
