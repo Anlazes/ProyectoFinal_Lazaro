@@ -1,3 +1,5 @@
+package codigo;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -61,12 +63,12 @@ public class Biblioteca extends JFrame {
 		librosBtn.setBounds(47, 299, 176, 23);
 		contentPane.add(librosBtn);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Biblioteca.class.getResource("/Imagenes/libros.jpg")));
 		lblNewLabel.setBounds(0, -3, 268, 325);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
+		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Biblioteca.class.getResource("/Imagenes/pelicula.jpg")));
 		lblNewLabel_2.setBounds(298, 202, 257, 169);
 		contentPane.add(lblNewLabel_2);
