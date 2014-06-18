@@ -123,6 +123,8 @@ public class VentanaMusica extends JFrame {
 		eliminarBtn = new JButton("Eliminar");
 		eliminarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Llamada al método de eliminar disco de la DB
+				conect.borrarDisco(listaMusica);
 			}
 		});
 		eliminarBtn.setBounds(317, 250, 89, 23);

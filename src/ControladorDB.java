@@ -118,7 +118,7 @@ public class ControladorDB {
 
 	//Método para eliminar un libro de la DB
 	public void borrarLibro(JComboBox<String> listaLibros) {
-		int id = listaLibros.getSelectedIndex();
+		int id = listaLibros.getSelectedIndex()-1;
 		
 		try {
 		//crea objeto Statement para consultar la base de datos	
@@ -127,7 +127,7 @@ public class ControladorDB {
 		//Elimina entrada de comboBox
 		listaLibros.removeItemAt(id);
 		//Elimina libro
-		instruccion.executeUpdate(slq);
+		instruccion.execute(slq);
 		
 		//Actualización del combobox
 		listaLibros.removeAllItems();
@@ -137,7 +137,31 @@ public class ControladorDB {
 			slqex.printStackTrace();
 		}
 	}
-		
+	
+	//Método para eliminar un disco de la DB
+		public void borrarDisco(JComboBox<String> listaMusica) {
+			int id = listaMusica.getSelectedIndex()-1;
+			
+			try {
+			//crea objeto Statement para consultar la base de datos	
+			instruccion = (Statement) conexion.createStatement();
+			String slq="DELETE FROM musica WHERE idDisco="+id;	
+			//Elimina entrada de comboBox
+			listaMusica.removeItemAt(id);
+			//Elimina libro
+			instruccion.execute(slq);
+			
+			//Actualización del combobox
+			listaMusica.removeAllItems();
+			leerMusica(listaMusica);
+			
+			} catch (SQLException slqex) {
+				slqex.printStackTrace();
+			}
+		}
+	
+	
+	
 	public String toString() {
 		return nombre;
 	}

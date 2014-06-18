@@ -128,7 +128,7 @@ public class VentanaLibros extends JFrame {
 		eliminarBtn = new JButton("Eliminar");
 		eliminarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//Llamada al método para eliminar el libro seleccionado de la DB
 				conect.borrarLibro(listaLibros);
 			}
 		});
