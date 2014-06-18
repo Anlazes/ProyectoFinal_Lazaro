@@ -138,17 +138,22 @@ public class VentanaMusica extends JFrame {
 		contentPane.add(consultarBtn);
 	}
 	
+	//Método para consultar la información del disco seleccionado
 	public void consularDisco () {
+		//Ponemos los campos de texto en blanco
 		textoGrupo.setText("");
 		textoTitulo.setText("");
 		textoGenero.setText("");
 		textoAnyo.setText("");
-		int id=listaMusica.getSelectedIndex()-1;
+		int id=listaMusica.getSelectedIndex()-1; //variable donde guardamos el indice seleccionado en comboBox
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			//Conectamos a la base de datos
 			Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/biblioteca","root","");
 			Statement comando=conexion.createStatement();
+			//Realizamos la consulta
 			ResultSet res = comando.executeQuery("SELECT * FROM musica WHERE idDisco="+id);
+			//Si hay resultado positivo a la consulta llenamos los campos de texto con el resultado
 			if (res.next()==true) {
 				textoGrupo.setText(res.getString("grupo"));
 				textoTitulo.setText(res.getString("titulo"));

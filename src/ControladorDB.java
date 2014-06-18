@@ -12,7 +12,8 @@ import javax.swing.JComboBox;
 public class ControladorDB {
 	
 	private String nombre;
-	private Libro libro;
+
+	
 	//Base de datos
 	Connection conexion = null; //maneja la conexión
 	Statement instruccion = null; //instrucción de consulta
@@ -23,23 +24,23 @@ public class ControladorDB {
 		//Nos conectamos a la base de datos
 		crearConexion();
 	}
-		
-	public void crearConexion(){
-		//Conectamos a la base de datos
+	
+	//Método para conectar a la base de datos
+	public void crearConexion(){	
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			//establece la conexión a la base de datos
 			conexion = DriverManager.getConnection("jdbc:mysql://localhost/biblioteca","root","");
-		}catch( SQLException excepcionSql ){
+		} catch( SQLException excepcionSql ){
 			excepcionSql.printStackTrace();
-		}// fin de catch
-		catch( ClassNotFoundException noEncontroClase ) {
+		}
+		  catch( ClassNotFoundException noEncontroClase ) {
 			noEncontroClase.printStackTrace();
 		}
 	}
 	
 	//Método para consultar la tabla libro de la DB
-	public void leerLibros(Libro libro, JComboBox<String> listaLibros) {
+	public void leerLibros(JComboBox<String> listaLibros) {
 		try {		
 		//crea objeto Statement para consultar la base de datos	
 		instruccion = (Statement) conexion.createStatement();
@@ -73,8 +74,7 @@ public class ControladorDB {
 			slqex.printStackTrace();
 		}
 	}
-	
-	
+		
 	
 	//Método para insertar un nuevo libro en la base de datos
 	public void insertarLibro(int idLibro, String titulo, String autor, String genero, String editorial, JComboBox<String> listaLibros) {
@@ -87,7 +87,7 @@ public class ControladorDB {
 		
 		//Actualización de comboBox
 		listaLibros.removeAllItems();
-		leerLibros(libro, listaLibros);
+		leerLibros(listaLibros);
 		
 		
 		} catch (SQLException slqex) {
@@ -131,7 +131,7 @@ public class ControladorDB {
 		
 		//Actualización del combobox
 		listaLibros.removeAllItems();
-		leerLibros(libro,listaLibros);
+		leerLibros(listaLibros);
 		
 		} catch (SQLException slqex) {
 			slqex.printStackTrace();

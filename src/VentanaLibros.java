@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.Toolkit;
+
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -19,7 +19,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+
 
 
 public class VentanaLibros extends JFrame {
@@ -33,25 +33,22 @@ public class VentanaLibros extends JFrame {
 	private JButton eliminarBtn;
 	private JButton consultarBtn;
 	private JComboBox<String> listaLibros;
-	private Libro miLibro;
 	private String nombre;
+	
 	
 	private ControladorDB conect=new ControladorDB();
 	Connection conexion = null; //maneja la conexión
 	Statement instruccion = null; //instrucción de consulta
 	ResultSet resultados = null; //maneja los resultados
 
-	
 
 
 	//Constructor de la clase Libros
 	public VentanaLibros() {
 		
 		iniciarVentana();
-		conect.leerLibros(miLibro, listaLibros);				
-		
-	}
-	
+		conect.leerLibros(listaLibros);						
+	}	
 	
 	//Constructor de la ventana Libros
 	public void iniciarVentana() {
@@ -141,7 +138,7 @@ public class VentanaLibros extends JFrame {
 		consultarBtn = new JButton("Consultar");
 		consultarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {		
-				
+				//Llamada al método para consultar la información del libro seleccionado en combobox
 				consultarLibros();
 			}
 		});
@@ -150,17 +147,22 @@ public class VentanaLibros extends JFrame {
 	  	
 	}
 	
+	//Método para consultar la información del libro seleccionado
 	public void consultarLibros() {
+		//Ponemos los campos de texto en blanco
 		textoTitulo.setText("");
 		textoAutor.setText("");
 		textoGenero.setText("");
 		textoEd.setText("");
-		int id=listaLibros.getSelectedIndex()-1;
+		int id=listaLibros.getSelectedIndex()-1; //variable donde guardamos el indice seleccionado en comboBox
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver"); 
+			//Conectamos a la base de datos
 			Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/biblioteca","root","");
 			Statement comando=conexion.createStatement();
+			//Realizamos la consulta
 			ResultSet res = comando.executeQuery("SELECT * FROM libros WHERE idLibro="+id);
+			//Si hay resultado positivo a la consulta llenamos los campos de texto con el resultado
 			if (res.next()==true) {
 				textoTitulo.setText(res.getString("titulo"));
 				textoAutor.setText(res.getString("autor"));

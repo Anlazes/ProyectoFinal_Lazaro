@@ -31,7 +31,8 @@ public class Biblioteca extends JFrame {
 		JButton musicaBtn = new JButton("M\u00FAsica");
 		musicaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				abrirMusica(); //Abre la ventana Musica
+				//Abre la ventana Musica
+				abrirMusica(); 
 			}
 		});
 		musicaBtn.setBounds(52, 37, 176, 23);
@@ -48,7 +49,7 @@ public class Biblioteca extends JFrame {
 		JButton librosBtn = new JButton("Libros");
 		librosBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Abre la ventana Libros
+					//Abre la ventana Libros
 					abrirLibros();
 			}
 		});
