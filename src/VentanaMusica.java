@@ -48,6 +48,10 @@ public class VentanaMusica extends JFrame {
 	public VentanaMusica() {
 		iniciarVentana();
 		conect.leerMusica(listaMusica);
+		
+		JLabel lblDisco = new JLabel("DISCO");
+		lblDisco.setBounds(26, 13, 46, 14);
+		contentPane.add(lblDisco);
 	}
 		
 	public void iniciarVentana() {

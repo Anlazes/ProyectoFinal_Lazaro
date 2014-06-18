@@ -33,13 +33,13 @@ public class VentanaLibros extends JFrame {
 	private JButton eliminarBtn;
 	private JButton consultarBtn;
 	private JComboBox<String> listaLibros;
-	private String nombre;
 	
 	
 	private ControladorDB conect=new ControladorDB();
 	Connection conexion = null; //maneja la conexión
 	Statement instruccion = null; //instrucción de consulta
 	ResultSet resultados = null; //maneja los resultados
+	private JLabel lblNewLabel;
 
 
 
@@ -48,6 +48,10 @@ public class VentanaLibros extends JFrame {
 		
 		iniciarVentana();
 		conect.leerLibros(listaLibros);						
+		
+		lblNewLabel = new JLabel("LIBRO");
+		lblNewLabel.setBounds(37, 11, 46, 14);
+		contentPane.add(lblNewLabel);
 	}	
 	
 	//Constructor de la ventana Libros
